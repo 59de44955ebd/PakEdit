@@ -323,6 +323,33 @@ if (!window.chrome.webview.api){
 """
 #window.dispatchEvent(new CustomEvent('pywebviewready'));
 
+DROP_JS = """
+function _init_drop_() {{
+    console.log('XXX');
+    window.chrome.webview._dragover = (evt) => {{
+        if (evt.dataTransfer.files){{
+            evt.stopPropagation();
+            evt.preventDefault();
+        }}
+    }};
+    window.chrome.webview._drop = (evt) => {{
+        if (evt.dataTransfer.files.length){{
+            evt.stopPropagation();
+            evt.preventDefault();
+            chrome.webview.postMessageWithAdditionalObjects(['files_dropped', evt.target.id], evt.dataTransfer.files);
+        }}
+    }};
+    for (let el of document.querySelectorAll("{}")){{
+        el.addEventListener('dragover', window.chrome.webview._dragover);
+        el.addEventListener('drop', window.chrome.webview._drop);
+    }}
+}}
+if (document && document.readyState === "complete")
+    _init_drop_();
+else
+    window.addEventListener("DOMContentLoaded", () => _init_drop_());
+"""
+
 ########################################
 # res = call_sync(self._active_webview.get_cookies)
 ########################################
@@ -546,7 +573,10 @@ class WebView2:
     def _register_event(self, evt):
 
         if self._webview is None:
-            self._init_events.append(evt)
+            if evt == EVENT.FILES_DROPPED:
+                self.add_script_to_execute_on_document_created(DROP_JS.format(SETTINGS.FILE_DROP_SELECTOR))
+            else:
+                self._init_events.append(evt)
             return
 
         if evt in self._handlers:
@@ -638,31 +668,7 @@ class WebView2:
             self._tokens[evt] = self._webview.add_WebResourceResponseReceived(self._handlers[evt].interface())
 
         elif evt == EVENT.FILES_DROPPED:
-            self.execute_js(f'''
-function _init_drop_() {{
-    window.chrome.webview._dragover = (evt) => {{
-        if (evt.dataTransfer.files){{
-            evt.stopPropagation();
-            evt.preventDefault();
-        }}
-    }};
-    window.chrome.webview._drop = (evt) => {{
-        if (evt.dataTransfer.files.length){{
-            evt.stopPropagation();
-            evt.preventDefault();
-            chrome.webview.postMessageWithAdditionalObjects(['files_dropped', evt.target.id], evt.dataTransfer.files);
-        }}
-    }};
-    for (let el of document.querySelectorAll("{SETTINGS.FILE_DROP_SELECTOR}")){{
-        el.addEventListener('dragover', window.chrome.webview._dragover);
-        el.addEventListener('drop', window.chrome.webview._drop);
-    }}
-}}
-if (document && document.readyState === "complete")
-    _init_drop_();
-else
-    window.addEventListener("DOMContentLoaded", () => _init_drop_());
-''')
+            self.execute_js(DROP_JS.format(SETTINGS.FILE_DROP_SELECTOR))
 
     ########################################
     #
@@ -778,7 +784,6 @@ else
     # args: ICoreWebView2Controller
     ########################################
     def _on_webview_ready(self, sender, args):
-
         self._controller = args
 
         webview = self._controller.get_CoreWebView2().QueryInterface(ICoreWebView2_28)  # ICoreWebView2_25

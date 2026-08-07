@@ -181,6 +181,15 @@ class App(MainWin):
         )
         self.webview.set_virtual_host_name_to_folder_mapping('app', APP_DIR)
 
+        ########################################
+        #
+        ########################################
+        def _on_files_dropped(webview, files, target_id):
+            if os.path.isfile(files[0]) and files[0].lower().endswith('.pak'):
+                self.load_pak_file(files[0])
+
+        self.webview.connect(EVENT.FILES_DROPPED, _on_files_dropped)
+
         self.statusbar = StatusBar(self)
 
         ########################################
