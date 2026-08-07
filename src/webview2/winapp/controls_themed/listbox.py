@@ -4,8 +4,8 @@ from ..themes import *
 LISTBOX_BG_COLOR = 0xf0f0f0
 LISTBOX_BG_BRUSH = gdi32.CreateSolidBrush(LISTBOX_BG_COLOR)
 
-LISTBOX_DARK_BG_COLOR = 0x2C2C2C
-LISTBOX_DARK_BG_BRUSH = gdi32.CreateSolidBrush(LISTBOX_DARK_BG_COLOR)
+LISTBOX_DARK_BG_COLOR = DARK_BG_COLOR
+LISTBOX_DARK_BG_BRUSH = DARK_BG_BRUSH
 
 
 ########################################

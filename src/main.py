@@ -139,7 +139,8 @@ class App(MainWin):
             h_accel = user32.LoadAcceleratorsW(HMOD_RESOURCES, MAKEINTRESOURCEW(1)),
             h_icon = user32.LoadIconW(HMOD_RESOURCES, MAKEINTRESOURCEW(1)),
             h_menu = user32.LoadMenuW(HMOD_RESOURCES, MAKEINTRESOURCEW(1)),
-            h_cursor = 0
+            h_cursor = 0,
+            h_brush = COLOR_3DFACE,
         )
 
         user32.SetCursor(HCURSOR_ARROW)
@@ -365,11 +366,9 @@ class App(MainWin):
     #
     ########################################
     def detect_file_type(self, data):
-
         has_utf8_bom = data.startswith(b'\xef\xbb\xbf')
         if has_utf8_bom:
             data = data[3:]
-
         if data.startswith(b'<svg'):  # lstrip().
             return '.svg'
         elif data.startswith(b'<!doctype') or data.startswith(b'<!DOCTYPE') or data.startswith(b'<!--') or data.startswith(b'<html'):
@@ -378,7 +377,7 @@ class App(MainWin):
             return '.zip'
         elif data.startswith(b'{"') or data.startswith(b'{\n') or data.startswith(b'[\n'):
             return '.json'
-        elif data.startswith(b'import') or data.startswith(b'export') or data.startswith(b'// ')  or data.startswith(b'\n// ') or data.startswith(b'const ') or data.startswith(b'var ') or data.startswith(b'"use strict"') or data.startswith(b'(()=>') or data.startswith(b'!'):
+        elif data.startswith(b'import') or data.startswith(b'export') or data.startswith(b'// ')  or data.startswith(b'\n// ') or data.startswith(b'const ') or data.startswith(b'var ') or data.startswith(b'"use strict"') or data.startswith(b'(()=>') or data.startswith(b'!') or data.startswith(b'(function'):
             return '.js'
         elif data.startswith(b'/*'):
             return '.css'
@@ -386,7 +385,6 @@ class App(MainWin):
             return '.mp4'
         elif has_utf8_bom:
             return '.txt'
-
         return ''
 
     ########################################
