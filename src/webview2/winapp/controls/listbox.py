@@ -37,39 +37,3 @@ class ListBox(Window):
             wrap_hwnd = wrap_hwnd,
             h_font = h_font,
         )
-
-#        self.has_border = (style & WS_BORDER)
-        self.has_client_edge = (ex_style & WS_EX_CLIENTEDGE)
-
-    ########################################
-    #
-    ########################################
-    def add_string(self, s, data=None):
-        idx = user32.SendMessageW(self.hwnd, LB_ADDSTRING, 0, s)
-        if data is not None:
-            user32.SendMessageW(self.hwnd, LB_SETITEMDATA, idx, data)
-        return idx
-
-#    ########################################
-#    #
-#    ########################################
-#    def set_item_data(self, idx, data):
-#        user32.SendMessageW(self.hwnd, LB_SETITEMDATA, idx, data)
-#
-#    ########################################
-#    #
-#    ########################################
-#    def rename_item(self, idx, new_name):
-#        data = user32.SendMessageW(self.hwnd, LB_GETITEMDATA, idx, 0)
-#        user32.SendMessageW(self.hwnd, LB_DELETESTRING, idx, 0)
-#        idx = user32.SendMessageW(self.hwnd, LB_ADDSTRING, 0, new_name)
-#        user32.SendMessageW(self.hwnd, LB_SETITEMDATA, idx, data)
-#
-#    ########################################
-#    #
-#    ########################################
-#    def find_item_by_data(self, data):
-#        cnt = user32.SendMessageW(self.hwnd, LB_GETCOUNT, 0, 0)
-#        for idx in range(cnt):
-#            if user32.SendMessageW(self.hwnd, LB_GETITEMDATA, idx, 0) == data:
-#                return idx
