@@ -1228,6 +1228,15 @@ else
     ########################################
     #
     ########################################
+    def get_find(self):
+        if self._webview is None:
+            raise WebviewNotReadyException()
+
+        return self._webview.get_Find()
+
+    ########################################
+    #
+    ########################################
     def get_settings(self):
         if self._webview is None:
             raise WebviewNotReadyException()

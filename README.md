@@ -12,6 +12,8 @@ Editable text resources can be edited directly inside the application. Binary re
 
 After some resources were edited a new `.pak` file can be saved (menu `File` -> `Save as...`). All resources in the new file will use the same compression as in the original file.
 
+PakEdit also supports searching for a known string in text resources (`.css`, `.html`, `.js`, `.json`).
+
 ## Supported media types for preview
 
 * avif

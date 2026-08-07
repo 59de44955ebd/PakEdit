@@ -62,10 +62,10 @@ TMP_DIR = os.environ['TMP']
 MEDIA_MIMETYPES = {
     '.avif': 'image/avif',
     '.jpg': 'image/jpeg',
+    '.mp4': 'video/mp4',
     '.png': 'image/png',
     '.svg': 'image/svg+xml',
     '.webp': 'image/webp',
-    '.mp4': 'video/mp4',
 }
 
 EDITABLE_MIMETYPES = {
@@ -653,8 +653,7 @@ class App(MainWin):
             opts = WebView2.environment.CreateFindOptions()
             opts.put_FindTerm(find_term)
             opts.put_ShouldHighlightAllMatches(TRUE)
-            fnd = self.webview._webview.get_Find()
-            fnd.Start(opts, None)
+            self.webview.get_find().Start(opts, None)
 
         for i in range(self.find_chunk_idx + 1, len(self.editable_chunk_indexes)):
             idx = self.editable_chunk_indexes[i]
