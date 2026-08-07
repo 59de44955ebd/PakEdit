@@ -450,13 +450,22 @@ class App(MainWin):
     #
     ########################################
     def save_pak_file(self):
-        pak_file_new = show_save_file_dialog(
-            hwnd = self.hwnd,
-            filter_string = 'PAK Files\0*.pak\0\0',
-            initial_path = 'resources.pak'
-        )
-        if not pak_file_new:
-            return
+        while True:
+            pak_file_new = show_save_file_dialog(
+                hwnd = self.hwnd,
+                filter_string = 'PAK Files\0*.pak\0\0',
+                initial_path = 'resources.pak'
+            )
+            if not pak_file_new:
+                return
+            if pak_file_new.lower() != self.pak_file.lower():
+                break
+            show_message_box(
+                self.hwnd,
+                'The currently loaded .pak file can not be overwritten.\nPlease save under a different filename.',
+                'Can not overwrite',
+                MB_ICONWARNING | MB_OK
+            )
 
         user32.SetWindowTextW(self.statusbar.hwnd, '  Creating new PAK file...')
 
