@@ -118,13 +118,10 @@ class App(MainWin):
     #
     ########################################
     def __init__(self):
-
         self.tmp_dir = None
-
         self.pak_file = None
         self.pak_infos = None
         self.is_dirty = False
-
         self.hwnd_find = None
 
         self.COMMAND_MESSAGE_MAP = {
@@ -560,7 +557,6 @@ class App(MainWin):
                 self.webview.load_url('data:text/plain;charset=UTF-8;base64,' + base64_bytes.decode("ascii"))
                 self.webview.expose('edit', _on_edit)
                 self.webview.execute_js(EDIT_JS)
-
             except:
                 self.show_data_hex(data)
 
@@ -594,7 +590,6 @@ class App(MainWin):
     #
     ########################################
     def find_string(self):
-#        self.find_chunk_idx = -1
 
         ########################################
         #
@@ -676,7 +671,7 @@ class App(MainWin):
             self.hwnd,
             (
                 f'{APP_NAME} v{APP_VERSION}\n\n'
-                'A simple tool for editing resources in PAK files of Chromium-based browsers.\n\n'
+                'A simple tool for editing resources in .pak files of Chromium-based browsers.\n\n'
             ),
             'About'
         )
@@ -691,6 +686,7 @@ class App(MainWin):
     #
     ########################################
     def quit(self, *_):
+        self.webview.close()
         if self.tmp_dir and os.path.isdir(self.tmp_dir):
             try:
                 shutil.rmtree(self.tmp_dir)
@@ -831,9 +827,6 @@ class App(MainWin):
                         f_new.write(f_org.read(entry['size']))
 
 
-########################################
-#
-########################################
 if __name__ == '__main__':
     sys.excepthook = traceback.print_exception
     sys.exit(App().run())
