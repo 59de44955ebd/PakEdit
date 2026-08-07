@@ -1,0 +1,38 @@
+#include "windows.h"
+#include "resources.h"
+
+1 ICON "app.ico"
+
+1 VERSIONINFO
+FILEVERSION 0,1,0,0
+PRODUCTVERSION 0,1,0,0
+FILEOS 0x40004
+FILETYPE 0x1
+{
+BLOCK "StringFileInfo"
+{
+	BLOCK "040904B0"
+	{
+		VALUE "CompanyName", "59de44955ebd"
+		VALUE "FileDescription", "PakEdit"
+		VALUE "FileVersion", "0.1.0.0)"
+		VALUE "InternalName", "PakEdit"
+		VALUE "OriginalFilename", "PakEdit.exe"
+		VALUE "ProductName", "PakEdit"
+		VALUE "ProductVersion", "0,1,0,0"
+	}
+}
+
+BLOCK "VarFileInfo"
+{
+	VALUE "Translation", 0x0409 0x04B0
+}
+}
+
+ID_POPUP_MENU_SHOW_FOLDER MENU
+BEGIN
+  POPUP "Popup"
+  BEGIN
+    MENUITEM "&Export and reveal", IDM_EXPORT
+  END
+END

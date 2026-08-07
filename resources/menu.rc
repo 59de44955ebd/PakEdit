@@ -1,0 +1,25 @@
+#include "windows.h"
+#include "resources.h"
+
+1 MENU
+BEGIN
+  POPUP "&File"
+  BEGIN
+    MENUITEM "&Open PAK File...\tCtrl+O",IDM_OPEN
+    MENUITEM "&Save as...\tCtrl+S",IDM_SAVE,GRAYED
+    MENUITEM "&Close\tCtrl+W",IDM_CLOSE,GRAYED
+    MENUITEM SEPARATOR
+    MENUITEM "E&xit\tCtrl+Q",IDM_EXIT
+  END
+  POPUP "&Edit"
+  BEGIN
+//    MENUITEM "&Decompress all chunks", IDM_DECOMPRESS,GRAYED
+//    MENUITEM SEPARATOR
+    MENUITEM "&Find\tAlt+F", IDM_FIND,GRAYED
+//    MENUITEM "&Find again\tAlt+G", IDM_FIND_AGAIN,GRAYED
+  END
+  POPUP "&Help"
+  BEGIN
+    MENUITEM "&About...\tF1", IDM_ABOUT
+  END
+END
