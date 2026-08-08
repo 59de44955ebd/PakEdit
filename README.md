@@ -29,6 +29,8 @@ PakEdit also supports searching for a known string in text resources (`.css`, `.
 
 ## Notes
 
+* `.pak` files are not self-contained archives, like e.g. `.zip` files. They only contain resource data, organized by ids, but no information about filenames and filetypes. This information is instead hard-coded into the binary (e.g. `chrome.dll`) that uses the `.pak` file. Therefor it makes no sense to add new or remove existing resources from a `.pak` file, the only thing that makes sense and that PakEdit supports is to change the contents of existing resources.
+
 * PakEdit is meant for recent versions of Brave/Chrome/Chromium/Edge/WebView, and therefor only supports PAK version 5. I actually couldn't find any version 4 `.pak` file at all, I guess they don't exist anymore since at least 10 years.
 
 * There is no `Save`, but only `Save as...`, because the process of saving as new `.pak` file depends on the original file, and therefor it can't be directly overwritten.
