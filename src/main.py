@@ -103,7 +103,7 @@ el.spellcheck=false;
 el.addEventListener("input", () => chrome.webview.api.edit(el.textContent), false);'''
 
 SETTINGS.ALLOW_HOST_INPUT_PROCESSING = True  # Forward key events
-
+SETTINGS.LANGUAGE = 'en-US'
 # Use a local profile folder
 if IS_FROZEN:
     SETTINGS.USER_DATA_FOLDER = os.path.join(APP_DIR, 'profile')
@@ -140,7 +140,7 @@ class App(MainWin):
             h_icon = user32.LoadIconW(HMOD_RESOURCES, MAKEINTRESOURCEW(1)),
             h_menu = user32.LoadMenuW(HMOD_RESOURCES, MAKEINTRESOURCEW(1)),
             h_cursor = 0,
-            h_brush = COLOR_3DFACE,
+            h_brush = COLOR_3DFACE + 1,
         )
 
         user32.SetCursor(HCURSOR_ARROW)
