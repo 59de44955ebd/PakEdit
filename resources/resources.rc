@@ -4,8 +4,8 @@
 1 ICON "app.ico"
 
 1 VERSIONINFO
-FILEVERSION 0,1,0,0
-PRODUCTVERSION 0,1,0,0
+FILEVERSION 0,2,0,0
+PRODUCTVERSION 0,2,0,0
 FILEOS 0x40004
 FILETYPE 0x1
 {
@@ -15,11 +15,11 @@ BLOCK "StringFileInfo"
 	{
 		VALUE "CompanyName", "59de44955ebd"
 		VALUE "FileDescription", "PakEdit"
-		VALUE "FileVersion", "0.1.0.0)"
+		VALUE "FileVersion", "0.2.0.0)"
 		VALUE "InternalName", "PakEdit"
 		VALUE "OriginalFilename", "PakEdit.exe"
 		VALUE "ProductName", "PakEdit"
-		VALUE "ProductVersion", "0,1,0,0"
+		VALUE "ProductVersion", "0,2,0,0"
 	}
 }
 

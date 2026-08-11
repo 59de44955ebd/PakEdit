@@ -44,6 +44,7 @@ echo ****************************************
 copy "src\webview2\native\win-amd64\loader.dll" "dist\%APP_NAME%\%DATA_DIR%\"
 copy "src\lottie.css" "dist\%APP_NAME%\%DATA_DIR%\"
 copy "src\lottie.min.js" "dist\%APP_NAME%\%DATA_DIR%\"
+copy "src\update.ps1" "dist\%APP_NAME%\%DATA_DIR%\"
 
 echo.
 echo ****************************************

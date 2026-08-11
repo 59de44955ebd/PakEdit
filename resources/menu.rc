@@ -21,5 +21,7 @@ BEGIN
   POPUP "&Help"
   BEGIN
     MENUITEM "&About...\tF1", IDM_ABOUT
+    MENUITEM SEPARATOR
+    MENUITEM "&Check for Updates", IDM_CHECK_UPDATE
   END
 END

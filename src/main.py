@@ -9,7 +9,7 @@ import sys
 import traceback
 
 APP_NAME = 'PakEdit'
-APP_VERSION = '0.1'
+APP_VERSION = '0.2'
 APP_DIR = os.path.dirname(__file__)
 IS_FROZEN = getattr(sys, 'frozen', False)
 
@@ -131,6 +131,7 @@ class App(MainWin):
             IDM_EXIT:                   self.quit,
             IDM_FIND:                   self.find_string,
             IDM_ABOUT:                  self.about,
+            IDM_CHECK_UPDATE:           self.check_update,
             IDM_DEV_TOOLS:              self.open_dev_tools,
         }
 
@@ -682,6 +683,18 @@ class App(MainWin):
             ),
             'About'
         )
+
+    ########################################
+    #
+    ########################################
+    def check_update(self):
+        command = f'"{os.path.join(APP_DIR, "update.ps1")}" {APP_VERSION} "https://github.com/59de44955ebd/{APP_NAME}"'
+        if os.path.isfile(os.path.join(os.path.dirname(sys.executable), 'uninstall.exe')):
+            command += f' "{APP_NAME}-x64-setup.exe"'
+        sei = SHELLEXECUTEINFOW()
+        sei.lpFile = 'powershell.exe'
+        sei.lpParameters = command
+        shell32.ShellExecuteExW(byref(sei))
 
     ########################################
     #
