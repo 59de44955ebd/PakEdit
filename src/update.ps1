@@ -4,7 +4,7 @@
 [string]$base_url = $args[1]
 [string]$setup_exe = $args[2]
 
-$tag = ([xml](Invoke-WebRequest -UseBasicParsing "$base_url/tags.atom").Content).feed.entry.title
+$tag = ([xml](Invoke-WebRequest -UseBasicParsing "$base_url/tags.atom").Content).feed.entry[0].title
 if($tag.Substring(1) -gt $version)
 {
 	If ($setup_exe -eq "")
