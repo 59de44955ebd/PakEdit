@@ -1,8 +1,9 @@
 [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 
-[float]$version = $args[0]
-[string]$base_url = $args[1]
-[string]$setup_exe = $args[2]
+[string]$app_name = $args[0]
+[float]$version = $args[1]
+[string]$base_url = $args[2]
+[string]$setup_exe = $args[3]
 
 $tag = ([xml](Invoke-WebRequest -UseBasicParsing "$base_url/tags.atom").Content).feed.entry[0].title
 if($tag.Substring(1) -gt $version)
@@ -20,7 +21,7 @@ if($tag.Substring(1) -gt $version)
 		$msgboxresult = [System.Windows.Forms.MessageBox]::Show("A newer version was found. Do you want to install it now?`n`nAnswering 'Yes' will quit the application.","Update Checker",4,[System.Windows.Forms.MessageBoxIcon]::Question)
 		If ($msgboxresult -eq "Yes")
 		{
-		    Stop-Process -Name "PakEdit"
+		    Stop-Process -Name "$app_name"
 			Invoke-WebRequest -Uri "$base_url/releases/download/$tag/$setup_exe" -OutFile "$Env:TMP\$setup_exe"
 			Start-Process -FilePath "$Env:TMP\$setup_exe"
 		}

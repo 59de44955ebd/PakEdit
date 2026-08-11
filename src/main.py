@@ -688,7 +688,7 @@ class App(MainWin):
     #
     ########################################
     def check_update(self):
-        command = f'"{os.path.join(APP_DIR, "update.ps1")}" {APP_VERSION} "https://github.com/59de44955ebd/{APP_NAME}"'
+        command = f'"{os.path.join(APP_DIR, "update.ps1")}" "{APP_NAME}" {APP_VERSION} "https://github.com/59de44955ebd/{APP_NAME}"'
         if os.path.isfile(os.path.join(os.path.dirname(sys.executable), 'uninstall.exe')):
             command += f' "{APP_NAME}-x64-setup.exe"'
         sei = SHELLEXECUTEINFOW()
